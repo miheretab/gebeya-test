@@ -9,15 +9,20 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- MDB icon -->
+    <link rel="icon" href="{{ asset('img/mdb-favicon.ico') }}" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Google Fonts Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+    <!-- MDB -->
+    <link rel="stylesheet" href="{{ asset('css/mdb.min.css') }}" />
 </head>
 <body>
     <div id="app">
@@ -76,5 +81,10 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- MDB -->
+    <script type="text/javascript" src="{{ asset('js/mdb.min.js') }}"></script>
+    <!-- Custom scripts -->
+    <script type="text/javascript"></script>
 </body>
 </html>
