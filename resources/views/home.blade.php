@@ -1,9 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-    </head>
-    <body>
-        <h1 style='text-align: center;'>Welcome to Miheretab server</h1>
-        <p style='text-align: center;'>To run you project here, Put your project folder in <b style='color: red;'>/var/www/html/</b> and make sure the public folder is at <b style='color: red;'>/var/www/html/public/</b> path.</p>
-    </body>
-</html>
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Dashboard') }}</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    {{ __('You are logged in!') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
