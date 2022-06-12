@@ -86,6 +86,7 @@
                             @else
                             <li class="nav-item"><a class="nav-link" href="{{ url('/products') }}">Products</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('/categories') }}">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/orders') }}">Orders</a></li>
                             @endif
                         @endguest
                     </ul>

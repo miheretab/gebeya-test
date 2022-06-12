@@ -16,6 +16,29 @@
 
                     You are logged in{{isset($impersonateUser) ? ' as ' . $impersonateUser->name : ''}}!
                 </div>
+                @if (isset($client))
+                <div class="table">
+
+                    <table class="table responsive stripe">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Total</th>
+                                <th>Total Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($client['orders'] as $order)
+                            <tr>
+                                <td>{{ $client['products'][$order->product_id] }}</td>
+                                <td>{{ $order->total }}</td>
+                                <td>${{ $order->price }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                @endif
             </div>
         </div>
     </div>

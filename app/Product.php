@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'price', 'quantity', 'image', 'user_id'
+    ];
+
+    /**
      * Get the orders associated with the product.
      */
     public function orders()

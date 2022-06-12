@@ -12,7 +12,7 @@ class UsersController extends Controller
     public function index(Request $request) {
         $users = User::where('is_admin', true)->get();
 
-        return view('users.index')->with(['users' => $users]);
+        return view('users.index')->with(compact('users'));
     }
 
     public function add(Request $request) {
@@ -36,7 +36,6 @@ class UsersController extends Controller
 
         return view('users.add');
     }
-
 
     public function edit(Request $request, $id = null) {
         $user = Auth::user();
@@ -87,7 +86,7 @@ class UsersController extends Controller
     public function clients(Request $request) {
         $users = User::where('is_admin', false)->get();
 
-        return view('users.clients')->with(['users' => $users]);
+        return view('users.clients')->with(compact('users'));
     }
 
     public function switchActive(Request $request, $id) {
@@ -113,7 +112,7 @@ class UsersController extends Controller
     public function profile(Request $request) {
         $user = Auth::user();
 
-        return view('users.profile')->with(['user' => $user]);
+        return view('users.profile')->with(compact('user'));
     }
 
     public function impersonate(Request $request, $id) {
@@ -123,12 +122,12 @@ class UsersController extends Controller
         // Guard against self impersonate
         if($user->id != Auth::user()->id) {
             Auth::user()->setImpersonating($user->id);
-            return redirect('/profile');
+            return redirect('/home');
         } else {
             $status = 'Impersonate disabled for this user.';
         }
 
-        return redirect()->back()->with(['status' => $status]);
+        return redirect()->back()->with(compact('status'));
     }
 
     public function stopImpersonate(Request $request) {
@@ -136,6 +135,6 @@ class UsersController extends Controller
 
         $status = 'Welcome back!';
 
-        return redirect('clients')->with(['status' => $status]);
+        return redirect('clients')->with(compact('status'));
     }
 }
