@@ -23,6 +23,11 @@
     />
     <!-- MDB -->
     <link rel="stylesheet" href="{{ asset('css/mdb.min.css') }}" />
+    <style>
+    .invalid-feedback {
+        position: relative;
+    }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -58,8 +63,12 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-mdb-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('/profile') }}">Profile</a>
+
+                                    @if(Auth::user()->isImpersonating())
+                                    <a class="dropdown-item" href="{{ route('stop-autologin') }}">Stop Auto Login</a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -71,6 +80,13 @@
                                     </form>
                                 </div>
                             </li>
+                            @if(Auth::user()->is_admin)
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/users') }}">Users</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/clients') }}">Clients</a></li>
+                            @else
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/products') }}">Products</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/categories') }}">Categories</a></li>
+                            @endif
                         @endguest
                     </ul>
                 </div>

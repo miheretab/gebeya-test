@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    You are logged in{{isset($impersonateUser) ? ' as ' . $impersonateUser->name : ''}}!
                 </div>
             </div>
         </div>

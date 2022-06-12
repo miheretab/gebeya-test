@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'is_admin', 'active'
     ];
 
     /**
@@ -36,4 +36,37 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //=======Impersonate functions======
+    public function setImpersonating($id)
+    {
+        \Session::put('impersonate', $id);
+    }
+
+    public function stopImpersonating()
+    {
+        \Session::forget('impersonate');
+    }
+
+    public function isImpersonating()
+    {
+        return \Session::has('impersonate');
+    }
+
+    /**
+     * Get the products associated with the user.
+     */
+    public function products()
+    {
+        return $this->hasMany('App\Product');
+    }
+
+    /**
+     * Get the categories associated with the user.
+     */
+    public function categories()
+    {
+        return $this->hasMany('App\Category');
+    }
+
 }
