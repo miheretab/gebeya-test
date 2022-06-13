@@ -43,7 +43,7 @@ class OrdersController extends Controller
 
         $cart = session('cart', ['orders' => [], 'customer' => null]);
         $orders = $cart['orders'];
-        $customer = $cart['customer'];
+        $customer = isset($cart['customer']) ? $cart['customer'] : null;
         $quantity = $request->input('quantity');
 
         if ($product->quantity > 0 && $product->quantity >= $quantity) {
@@ -80,7 +80,7 @@ class OrdersController extends Controller
 
         $cart = session('cart');
         $orders = $cart['orders'];
-        $customer = $cart['customer'];
+        $customer = isset($cart['customer']) ? $cart['customer'] : null;
         $quantity = $request->input('quantity');
 
         $diffQuantity = $quantity - $orders[$id]['quantity'];
@@ -102,7 +102,8 @@ class OrdersController extends Controller
 
         $orders[$id]['quantity'] = $quantity;
 
-        $cart = session(['cart' => compact('orders', 'customer')]);
+        session(['cart' => compact('orders', 'customer')]);
+        $cart['orders'] = $orders;
 
         return redirect('/orders')->with(compact('cart', 'status'));
     }
@@ -110,8 +111,9 @@ class OrdersController extends Controller
     public function removeFromCart(Request $request, $id, $categoryId = null) {
         $product = Product::findOrFail($id);
 
-        $cart = session('cart', ['orders' => []]);
+        $cart = session('cart', ['orders' => [], 'customer' => null]);
         $orders = $cart['orders'];
+        $customer = isset($cart['customer']) ? $cart['customer'] : null;
 
         if (isset($orders[$id])) {
             $product->quantity = $product->quantity + $orders[$id]['quantity'];
@@ -120,7 +122,7 @@ class OrdersController extends Controller
             unset($orders[$id]);
         }
 
-        session(['cart' => compact('orders')]);
+        session(['cart' => compact('orders', 'customer')]);
 
         if ($categoryId) {
             return redirect('/store/'.$product->user_id.'/'.$categoryId)->with(compact('status'));
