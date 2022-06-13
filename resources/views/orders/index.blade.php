@@ -44,7 +44,7 @@
                         </table>
                     </div>
                   @endif
-                  <a class="btn" href="{{ url('checkout') }}"
+                  <a class="btn btn-primary" href="{{ url('checkout') }}">Checkout</a>
             </div>
         </div>
     </div>

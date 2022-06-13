@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
@@ -131,9 +132,9 @@ class OrdersController extends Controller
     public function checkout(Request $request) {
         $cart = session('cart', ['orders' => [], 'customer' => null]);
 
-        if ($request->isMethod('post'))) {
+        if ($request->isMethod('post')) {
             $orders = $cart['orders'];
-            $customer = $cart['customer'];
+            $customer = isset($cart['customer']) ? $cart['customer'] : null;
             $input = $request->all();
 
             if (!$customer) {
@@ -151,8 +152,10 @@ class OrdersController extends Controller
 
             }
 
-            return redirect('/success')->with(compact('customer'));
+            $success = true;
             session(['cart' => ['orders' => [], 'customer' => $customer]]);
+
+            return view('orders.checkout')->with(compact('cart', 'success'));
         }
 
         return view('orders.checkout')->with(compact('cart'));
