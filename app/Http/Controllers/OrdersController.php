@@ -32,7 +32,7 @@ class OrdersController extends Controller
     }
 
     public function index() {
-        $cart = session('cart', ['orders' => []]);
+        $cart = session('cart', ['orders' => [], 'customer' => null]);
 
         return view('orders.index')->with(compact('cart'));
     }
@@ -40,8 +40,9 @@ class OrdersController extends Controller
     public function addToCart(Request $request, $id, $categoryId = null) {
         $product = Product::findOrFail($id);
 
-        $cart = session('cart', ['orders' => []]);
+        $cart = session('cart', ['orders' => [], 'customer' => null]);
         $orders = $cart['orders'];
+        $customer = $cart['customer'];
         $quantity = $request->input('quantity');
 
         if ($product->quantity > 0 && $product->quantity >= $quantity) {
@@ -55,7 +56,7 @@ class OrdersController extends Controller
             $status = "You got last ones and added to cart successfully";
         } else {
             $quantity = 0;
-            $status = "Sold Out";
+            $status = "Sold out";
         }
 
         if (isset($orders[$id])) {
@@ -64,27 +65,28 @@ class OrdersController extends Controller
             $orders[$id] = ['quantity' => $quantity, 'product' => $product];
         }
 
-        session(['cart' => compact('orders')]);
+        session(['cart' => compact('orders', 'customer')]);
 
         if ($categoryId) {
             return redirect('/store/'.$product->user_id.'/'.$categoryId)->with(compact('status'));
         } else {
-            return redirect('/'.$product->user_id)->with(compact('status'));
+            return redirect('/store/'.$product->user_id)->with(compact('status'));
         }
     }
 
-    public function updateCart(Request $request, $id) {
+    public function updateToCart(Request $request, $id) {
         $product = Product::findOrFail($id);
 
-        $cart = session('cart', ['orders' => []]);
+        $cart = session('cart');
         $orders = $cart['orders'];
+        $customer = $cart['customer'];
         $quantity = $request->input('quantity');
 
         $diffQuantity = $quantity - $orders[$id]['quantity'];
         if ($diffQuantity == 0) {
             return redirect('/orders')->with(compact('cart'));
         }
-var_dump($diffQuantity);exit;
+
         if ($product->quantity > 0 && $product->quantity >= $diffQuantity) {
             $product->quantity = $product->quantity - $diffQuantity;
             $product->save();
@@ -94,12 +96,12 @@ var_dump($diffQuantity);exit;
             $product->save();
             $status = "You got last ones and cart updated successfully";
         } else {
-            $status = "Sold Out";
+            $status = "Sold out";
         }
 
         $orders[$id]['quantity'] = $quantity;
 
-        //$cart = session(['cart' => compact('orders')]);
+        $cart = session(['cart' => compact('orders', 'customer')]);
 
         return redirect('/orders')->with(compact('cart', 'status'));
     }
@@ -122,7 +124,37 @@ var_dump($diffQuantity);exit;
         if ($categoryId) {
             return redirect('/store/'.$product->user_id.'/'.$categoryId)->with(compact('status'));
         } else {
-            return redirect('/'.$product->user_id)->with(compact('status'));
+            return redirect('/store/'.$product->user_id)->with(compact('status'));
         }
+    }
+
+    public function checkout(Request $request) {
+        $cart = session('cart', ['orders' => [], 'customer' => null]);
+
+        if ($request->isMethod('post'))) {
+            $orders = $cart['orders'];
+            $customer = $cart['customer'];
+            $input = $request->all();
+
+            if (!$customer) {
+                $customer = Customer::create($input);
+            } else {
+                $customer->update($input);
+            }
+
+            foreach ($orders as $order) {
+                $orderInput['customer_id'] = $customer->id;
+                $orderInput['price'] = $order['product']->price;
+                $orderInput['product_id'] = $order['product']->id;
+                $orderInput['quantity'] = $order['quantity'];
+                Order::create($orderInput);
+
+            }
+
+            return redirect('/success')->with(compact('customer'));
+            session(['cart' => ['orders' => [], 'customer' => $customer]]);
+        }
+
+        return view('orders.checkout')->with(compact('cart'));
     }
 }

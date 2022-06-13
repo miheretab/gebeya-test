@@ -22,7 +22,7 @@
                                 @foreach($cart['orders'] as $order)
                                 <tr>
                                     <td>{{ $order['product']->name }}</td>
-                                    <td><input id="quantity-real" type="number" class="form-control" name="quantity-real" onChange="document.getElementById('quantity').value = this.value;" value="{{ $order['quantity'] }}" required autocomplete="quantity"></td>
+                                    <td><input id="quantity-real" type="number" class="form-control" onChange="document.getElementById('quantity').value = this.value;" value="{{ $order['quantity'] }}" required autocomplete="quantity"></td>
                                     <td>${{ $order['product']->price }}</td>
                                     <td>${{ $order['product']->price * $order['quantity'] }}</td>
                                     <td>
@@ -44,6 +44,7 @@
                         </table>
                     </div>
                   @endif
+                  <a class="btn" href="{{ url('checkout') }}"
             </div>
         </div>
     </div>

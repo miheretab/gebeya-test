@@ -22,17 +22,20 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/orders', 'OrdersController@index');
 Route::get('/view-order/{id}', 'OrdersController@view');
-Route::get('/{clientId}', 'ProductsController@store');
+Route::get('/store/{clientId}', 'ProductsController@store');
 Route::get('/store/{clientId}/{categoryId}', 'ProductsController@storeByCategory');
 Route::post('/add-to-cart/{id}/{categoryId?}', 'OrdersController@addToCart');
-Route::post('/remove-from-cart/{id}/{categoryId?}', 'OrdersController@removeFromCart');
 Route::post('/update-cart/{id}', 'OrdersController@updateCart');
+Route::post('/remove-from-cart/{id}/{categoryId?}', 'OrdersController@removeFromCart');
+Route::get('/checkout', 'OrdersController@checkout');
+Route::post('/go-checkout', 'OrdersController@checkout');
+Route::get('/success', 'OrdersController@success');
 
 Route::group(['middleware' => 'admin'], function () {
-    Route::get('/users', 'UsersController@index');
-    Route::get('/clients', 'UsersController@clients');
-    Route::get('/add-admin', 'UsersController@add');
-    Route::post('/save-admin', 'UsersController@add');
+    Route::get('/users', 'UsersController@index')->name('users');
+    Route::get('/clients', 'UsersController@clients')->name('clients');
+    Route::get('/add-admin', 'UsersController@add')->name('add-admin');
+    Route::post('/save-admin', 'UsersController@add')->name('save-admin');
     Route::get('/edit-user/{id}', 'UsersController@edit');
     Route::post('/switch-user/{id}', 'UsersController@switchActive');
     Route::post('/remove-user/{id}', 'UsersController@remove');
