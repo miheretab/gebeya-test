@@ -30,12 +30,12 @@ class LoginController extends Controller
      * @return string
      */
     protected function redirectTo(){
-        $user = auth()->user();
-
+        /*$user = auth()->user();
+var_dump($user);exit;
         if(!$user->active){
             auth()->logout();
             return '/login';
-        }
+        }*/
 
         return RouteServiceProvider::HOME;
     }

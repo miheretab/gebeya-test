@@ -30,6 +30,9 @@ class UsersController extends Controller
             }
 
             $input['is_admin'] = true;
+            if (!empty($input['password'])) {
+                $input['password'] = bcrypt($input['password']);
+            }
             User::create($input);
             return redirect('/users');
         }
@@ -70,6 +73,10 @@ class UsersController extends Controller
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            if (!empty($input['password'])) {
+                $input['password'] = bcrypt($input['password']);
             }
 
             $user->update($input);
