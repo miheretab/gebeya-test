@@ -63,7 +63,7 @@
 
                     </div>
 
-                    @if (isset($success))
+                    @if (isset($success) && $cart['customer'])
                         Thank You. Your order id is #{{ $cart['customer']->id }}
                     @else
                     <div class="form-group row mb-0">
