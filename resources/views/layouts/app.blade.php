@@ -64,6 +64,7 @@
                                     {{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('/home') }}">Dashboard</a>
                                     <a class="dropdown-item" href="{{ url('/profile') }}">Profile</a>
 
                                     @if(Auth::user()->isImpersonating())
