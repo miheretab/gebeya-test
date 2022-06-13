@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Add Product') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('create-product') }}">
+                    <form method="POST" action="{{ url('create-product') }}" enctype="multipart/form-data">
                         @csrf
 
                         @include('products.form')

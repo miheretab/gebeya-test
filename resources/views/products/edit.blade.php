@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Edit Product') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('save-product', $product->id) }}">
+                    <form method="POST" action="{{ url('save-product', $product->id) }}" enctype="multipart/form-data">
                         @csrf
 
                         @include('products.form', compact('product'))

@@ -23,11 +23,7 @@
     />
     <!-- MDB -->
     <link rel="stylesheet" href="{{ asset('css/mdb.min.css') }}" />
-    <style>
-    .invalid-feedback {
-        position: relative;
-    }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 </head>
 <body>
     <div id="app">
@@ -67,6 +63,7 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <div class="text-center footer">&copy;{{ date('Y') }}</div>
     </div>
 
     <!-- MDB -->

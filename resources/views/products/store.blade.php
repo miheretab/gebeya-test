@@ -30,7 +30,7 @@
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->quantity }}</td>
                                 <td>${{ $product->price }}</td>
-                                <td><img src="{{ $product->image }}" alt="{{ $product->image }}" /></td>
+                                <td><img src="/{{ $product->image }}" height="100px" alt="{{ $product->image }}" /></td>
                                 <td>
                                     @if ($product->quantity > 0)
                                     <a class="btn" data-mdb-toggle="modal" data-mdb-target="#cartModal" href="#" onclick="event.preventDefault();

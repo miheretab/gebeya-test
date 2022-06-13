@@ -58,6 +58,16 @@ class ProductsController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
+            $file = $request->file('image');
+
+            if ($file) {
+                //Move Uploaded File
+                $destinationPath = 'uploads';
+                $file->move($destinationPath, $file->getClientOriginalName());
+
+                $input['image'] = $destinationPath . '/' . $file->getClientOriginalName();
+            }
+
             $user = Auth::user();
             $input['user_id'] = $user->id;
             Product::create($input);
@@ -87,6 +97,16 @@ class ProductsController extends Controller
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $file = $request->file('image');
+
+            if ($file) {
+                //Move Uploaded File
+                $destinationPath = 'uploads';
+                $file->move($destinationPath, $file->getClientOriginalName());
+
+                $input['image'] = $destinationPath . '/' . $file->getClientOriginalName();
             }
 
             $product->update($input);

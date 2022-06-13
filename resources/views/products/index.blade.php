@@ -31,7 +31,7 @@
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->quantity }}</td>
                                 <td>${{ $product->price }}</td>
-                                <td><img src="{{ $product->image }}" alt="{{ $product->image }}" /></td>
+                                <td><img src="/{{ $product->image }}" height="100px" alt="{{ $product->image }}" /></td>
                                 <td>
                                     <a href="{{ url('edit-product', $product->id) }}">Edit</a>&nbsp;&nbsp;|&nbsp;
                                     <a href="{{ url('remove-product', $product->id) }}" onclick="event.preventDefault();
