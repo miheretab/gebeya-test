@@ -80,8 +80,14 @@ class UsersController extends Controller
             }
 
             $user->update($input);
-
-            return redirect()->back();
+            
+            if (!Auth::user()->is_admin) {
+                return redirect('/profile');
+            } else if ($user->is_admin) {
+                return redirect('/users');
+            } else {
+                return redirect('/clients');
+            }
         }
 
         return view('users.edit', compact('user'));
