@@ -13,9 +13,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function home()
     {
-        $this->middleware('auth');
+        $clients = User::where('is_admin', false)->where('active', true)->get();
+        return view('landing')->with(compact('clients'));
     }
 
     /**

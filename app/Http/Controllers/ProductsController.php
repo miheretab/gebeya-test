@@ -19,7 +19,7 @@ class ProductsController extends Controller
 
     public function store(Request $request, $clientId) {
         $client = User::findOrFail($clientId);
-        if ($client->is_admin) {
+        if ($client->is_admin || !$client->active) {
             return redirect('/');
         }
 
