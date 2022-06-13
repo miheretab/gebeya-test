@@ -6,6 +6,13 @@
         <div class="col-md-8">
             <div class="row">
                 <div class="h1">Cart Page</div>
+
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
                   @if (isset($cart['orders']) && !empty($cart['orders']))
                     <div class="table">
                         <table class="table responsive stripe">

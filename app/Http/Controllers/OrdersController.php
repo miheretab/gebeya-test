@@ -96,6 +96,10 @@ class OrdersController extends Controller
             $product->quantity = 0;
             $product->save();
             $status = "You got last ones and cart updated successfully";
+        } else if ($product->quantity == 0 && $diffQuantity < 0) {
+            $product->quantity = -$diffQuantity;
+            $product->save();
+            $status = "Cart updated successfully";
         } else {
             $status = "Sold out";
         }
@@ -103,9 +107,8 @@ class OrdersController extends Controller
         $orders[$id]['quantity'] = $quantity;
 
         session(['cart' => compact('orders', 'customer')]);
-        $cart['orders'] = $orders;
 
-        return redirect('/orders')->with(compact('cart', 'status'));
+        return redirect('/orders')->with(compact('status'));
     }
 
     public function removeFromCart(Request $request, $id, $categoryId = null) {
