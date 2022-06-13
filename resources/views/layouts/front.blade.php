@@ -51,7 +51,7 @@
                         <!-- Categories Links -->
                         @foreach ($client->categories as $category)
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('store', $client->id) }}/{{ $category->id }}">{{ $category->name }}</a>
+                                <a class="nav-link" href="{{ url('store-cat', $client->id) }}/{{ $category->id }}">{{ $category->name }}</a>
                             </li>
                         @endforeach
                         @endif

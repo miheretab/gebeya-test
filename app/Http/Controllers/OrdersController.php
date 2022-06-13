@@ -68,11 +68,7 @@ class OrdersController extends Controller
 
         session(['cart' => compact('orders', 'customer')]);
 
-        if ($categoryId) {
-            return redirect('/store/'.$product->user_id.'/'.$categoryId)->with(compact('status'));
-        } else {
-            return redirect('/store/'.$product->user_id)->with(compact('status'));
-        }
+        return redirect()->back()->with(compact('status'));
     }
 
     public function updateToCart(Request $request, $id) {
@@ -85,7 +81,7 @@ class OrdersController extends Controller
 
         $diffQuantity = $quantity - $orders[$id]['quantity'];
         if ($diffQuantity == 0) {
-            return redirect('/orders')->with(compact('cart'));
+            return redirect()->back()->with(compact('cart'));
         }
 
         if ($product->quantity > 0 && $product->quantity >= $diffQuantity) {
@@ -112,7 +108,7 @@ class OrdersController extends Controller
 
         session(['cart' => compact('orders', 'customer')]);
 
-        return redirect('/orders')->with(compact('status'));
+        return redirect()->back()->with(compact('status'));
     }
 
     public function removeFromCart(Request $request, $id, $categoryId = null) {
@@ -131,11 +127,7 @@ class OrdersController extends Controller
 
         session(['cart' => compact('orders', 'customer')]);
 
-        if ($categoryId) {
-            return redirect('/store/'.$product->user_id.'/'.$categoryId)->with(compact('status'));
-        } else {
-            return redirect('/store/'.$product->user_id)->with(compact('status'));
-        }
+        return redirect()->back()->with(compact('status'));
     }
 
     public function checkout(Request $request) {

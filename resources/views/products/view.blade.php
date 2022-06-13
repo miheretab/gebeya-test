@@ -5,47 +5,29 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="row">
-                <div class="h1">{{ 'Store / ' . $client->id }} {{ isset($category) ? '/ ' . $category->id  : '' }}</div>
+                <div class="h1">{{ 'Store / ' . $client->id }} {{ isset($category) ? '/ ' . $category->id  : '' }} / {{ $product->id }}</div>
 
-                <div class="table">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
 
-                    <table class="table responsive stripe">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Image</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($products as $product)
-                            <tr>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ $product->quantity }}</td>
-                                <td>${{ $product->price }}</td>
-                                <td><img src="/{{ $product->image }}" height="100px" alt="{{ $product->image }}" /></td>
-                                <td>
-                                    <a class="btn" href="{{ url(isset($category) ? 'store-cat' : 'store', $client->id) }}{{ isset($category) ? '/' . $category->id  : '' }}/{{ $product->id }}" >View</a>
-                                    @if ($product->quantity > 0)
-                                    <a class="btn" data-mdb-toggle="modal" data-mdb-target="#cartModal" href="#" onclick="event.preventDefault();
-                                        document.getElementById('cart-form').setAttribute('action', '{{ url('add-to-cart', $product->id) }}{{ isset($category) ? '/'. $category->id : ''}}');
-                                        document.getElementById('product-name').textContent = '{{ $product->name }}'" >Add to cart</a>
-                                    @else
-                                    Sold Out!
-                                    @endif
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+
+                    <div class="h5 mb-2">{{ $product->name }}</div>
+                    <div class="h5 mb-2">{{ $product->quantity }}</td>
+                    <div class="h5 mb-2">${{ $product->price }}</td>
+                    <div class="text-center mb-5"><img src="/{{ $product->image }}" width="300px" alt="{{ $product->image }}" /></td>
+                    <div class="mt-5">
+                        @if ($product->quantity > 0)
+                        <a class="btn" data-mdb-toggle="modal" data-mdb-target="#cartModal" href="#" onclick="event.preventDefault();
+                            document.getElementById('cart-form').setAttribute('action', '{{ url('add-to-cart', $product->id) }}{{ isset($category) ? '/'. $category->id : ''}}');
+                            document.getElementById('product-name').textContent = '{{ $product->name }}'" >Add to cart</a>
+                        @else
+                        Sold Out!
+                        @endif
+                    </div>
+
             </div>
         </div>
     </div>

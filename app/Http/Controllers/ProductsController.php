@@ -17,19 +17,27 @@ class ProductsController extends Controller
         return view('products.index')->with(compact('products'));
     }
 
-    public function store(Request $request, $clientId) {
+    public function store(Request $request, $clientId, $productId = null) {
         $client = User::findOrFail($clientId);
         if ($client->is_admin || !$client->active) {
             return redirect('/');
         }
 
         $cart = session('cart');
-        $products = Product::where('user_id', $clientId)->orderBy('created_at', 'desc')->get();
 
-        return view('products.store')->with(compact('products', 'client', 'cart'));
+        if ($productId) {
+
+            $product = Product::where('user_id', $clientId)->where('id', $productId)->first();
+            return view('products.view')->with(compact('product', 'client', 'cart'));
+
+        } else {
+
+            $products = Product::where('user_id', $clientId)->orderBy('created_at', 'desc')->get();
+            return view('products.store')->with(compact('products', 'client', 'cart'));
+        }
     }
 
-    public function storeByCategory(Request $request, $clientId, $categoryId) {
+    public function storeByCategory(Request $request, $clientId, $categoryId, $productId = null) {
         $category = Category::findOrFail($categoryId);
         $client = User::findOrFail($clientId);
         if ($client->is_admin) {
@@ -37,9 +45,16 @@ class ProductsController extends Controller
         }
 
         $cart = session('cart');
-        $products = $category->products()->orderBy('created_at', 'desc')->get();
+        if ($productId) {
 
-        return view('products.store')->with(compact('products', 'client', 'category', 'cart'));
+            $product = $category->products()->where('product_id', $productId)->first();
+            return view('products.view')->with(compact('product', 'client', 'category', 'cart'));
+
+        } else {
+            $products = $category->products()->orderBy('created_at', 'desc')->get();
+
+            return view('products.store')->with(compact('products', 'client', 'category', 'cart'));
+        }
     }
 
     public function add(Request $request) {

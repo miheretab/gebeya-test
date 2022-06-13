@@ -15,7 +15,7 @@
                         <tbody>
                             @foreach($clients as $client)
                             <tr>
-                                <td><a href="{{ url('store', $client->id) }}">{{ $client->name }}</a></td>
+                                <td><a href="{{ url('store', $client->id) }}">{{ $client->name }}</a> - Store [{{ $client->id }}]</td>
                             </tr>
                             @endforeach
                         </tbody>
