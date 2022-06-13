@@ -104,7 +104,11 @@ class OrdersController extends Controller
             $status = "Sold out";
         }
 
-        $orders[$id]['quantity'] = $quantity;
+        if ($quantity > 0) {
+            $orders[$id]['quantity'] = $quantity;
+        } else {
+            unset($orders[$id]);
+        }
 
         session(['cart' => compact('orders', 'customer')]);
 
@@ -159,10 +163,12 @@ class OrdersController extends Controller
 
             $success = true;
             session(['cart' => ['orders' => [], 'customer' => $customer]]);
+            $cart['customer'] = $customer;
 
             return view('orders.checkout')->with(compact('cart', 'success'));
         }
 
         return view('orders.checkout')->with(compact('cart'));
     }
+
 }

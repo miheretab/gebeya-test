@@ -50,8 +50,10 @@
                             </tbody>
                         </table>
                     </div>
+                    <a class="btn btn-primary" href="{{ url('checkout') }}">Checkout</a>
+                  @else
+                    <div>No items left in your cart!</div>
                   @endif
-                  <a class="btn btn-primary" href="{{ url('checkout') }}">Checkout</a>
             </div>
         </div>
     </div>
