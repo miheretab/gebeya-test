@@ -82,11 +82,11 @@ class UsersController extends Controller
             $user->update($input);
             
             if (!Auth::user()->is_admin) {
-                return redirect('/profile');
+                return redirect('/profile')->with(['status' => 'Profie updated!']);
             } else if ($user->is_admin) {
-                return redirect('/users');
+                return redirect('/users')->with(['status' => 'User updated!']);
             } else {
-                return redirect('/clients');
+                return redirect('/clients')->with(['status' => 'User updated!']);
             }
         }
 
