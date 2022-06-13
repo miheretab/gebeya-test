@@ -132,7 +132,7 @@ class UsersController extends Controller
         // Guard against self impersonate
         if($user->id != Auth::user()->id) {
             Auth::user()->setImpersonating($user->id);
-            return redirect('/products');
+            return redirect('/products')->with(['status' => 'You are logged in as '.$user->name.'!']);
         } else {
             $status = 'Impersonate disabled for this user.';
         }
