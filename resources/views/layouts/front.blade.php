@@ -45,14 +45,16 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('orders') }}">Cart</a>
+                            <a class="nav-link btn" href="{{ url('orders') }}">Cart</a>
                         </li>
                         @if (isset($client))
                         <!-- Categories Links -->
                         @foreach ($client->categories as $category)
+                            @if ($category->active)
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('store-cat', $client->id) }}/{{ $category->id }}">{{ $category->name }}</a>
                             </li>
+                            @endif
                         @endforeach
                         @endif
                     </ul>

@@ -62,6 +62,7 @@ Route::group(['middleware' => 'impersonate'], function () {
     Route::get('/edit-category/{id}', 'CategoriesController@edit');
     Route::post('/save-category/{id}', 'CategoriesController@edit');
     Route::post('/remove-category/{id}', 'CategoriesController@remove');
+    Route::post('/switch-category/{id}', 'CategoriesController@switchActive');
 
     Route::get('/client-orders', 'OrdersController@byClient');
     Route::post('/complete-order/{id}', 'OrdersController@complete');

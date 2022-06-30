@@ -70,4 +70,14 @@ class CategoriesController extends Controller
         return redirect('/categories');
     }
 
+    public function switchActive(Request $request, $id) {
+        $category = Category::findOrFail($id);
+
+        if ($category->user_id != Auth::user()->id) {
+            return redirect()->back()->with(['status' => 'Unauthorized']);
+        }
+
+        $category->update(['active' => !$category->active]);
+        return redirect('/categories');
+    }
 }
