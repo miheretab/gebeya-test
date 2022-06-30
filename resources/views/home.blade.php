@@ -16,7 +16,7 @@
 
                     You are logged in{{isset($impersonateUser) ? ' as ' . $impersonateUser->name : ''}}!
                 </div>
-                @if (isset($client))
+                @if (isset($client) && isset($client['orders']) && isset($client['products']))
                 <div class="table">
 
                     <table class="table responsive stripe">
