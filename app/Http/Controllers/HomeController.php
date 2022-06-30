@@ -35,10 +35,13 @@ class HomeController extends Controller
         }
 
         if (!$user->is_admin) {
+            $products = $user->products()->pluck('name', 'id');
+
             $orders = Order::groupBy('product_id')
                 ->selectRaw('count(*) as total, sum(price*quantity) as price, product_id')
+                ->whereIn('product_id', array_keys($products->toArray()))
                 ->get();
-            $products = $user->products()->pluck('name', 'id');
+
             $data['client'] = ['orders' => $orders, 'products' => $products];
             return view('home')->with($data);
         }
