@@ -38,7 +38,7 @@ class HomeController extends Controller
             $products = $user->products()->pluck('name', 'id');
 
             $orders = Order::groupBy('product_id')
-                ->selectRaw('count(*) as total, sum(price*quantity) as price, product_id')
+                ->selectRaw('sum(quantity) as total, sum(price*quantity) as price, product_id')
                 ->whereIn('product_id', array_keys($products->toArray()))
                 ->get();
 
