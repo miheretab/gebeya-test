@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Customer;
 use App\Order;
 use App\Product;
@@ -34,8 +35,9 @@ class OrdersController extends Controller
 
     public function index() {
         $cart = session('cart', ['orders' => [], 'customer' => null]);
+        $categories = Category::where('active', true)->get();
 
-        return view('orders.index')->with(compact('cart'));
+        return view('orders.index')->with(compact('cart', 'categories'));
     }
 
     public function addToCart(Request $request, $id, $categoryId = null) {
@@ -147,6 +149,7 @@ class OrdersController extends Controller
 
     public function checkout(Request $request) {
         $cart = session('cart', ['orders' => [], 'customer' => null]);
+        $categories = Category::where('active', true)->get();
 
         if ($request->isMethod('post')) {
             $orders = $cart['orders'];
@@ -172,10 +175,10 @@ class OrdersController extends Controller
             session(['cart' => ['orders' => [], 'customer' => $customer]]);
             $cart['customer'] = $customer;
 
-            return view('orders.checkout')->with(compact('cart', 'success'));
+            return view('orders.checkout')->with(compact('cart', 'success', 'categories'));
         }
 
-        return view('orders.checkout')->with(compact('cart'));
+        return view('orders.checkout')->with(compact('cart', 'categories'));
     }
 
 }

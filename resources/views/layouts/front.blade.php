@@ -53,6 +53,10 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/home') }}">Dashboard</a>
+                            </li>
                         @endguest
                         <li class="nav-item">
                             <a class="nav-link btn" href="{{ url('orders') }}">Cart</a>
