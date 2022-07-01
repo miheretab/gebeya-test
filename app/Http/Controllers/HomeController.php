@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function home()
     {
-        $clients = User::where('is_admin', false)->where('active', true)->get();
+        $clients = User::where('is_admin', false)->where('active', true)->paginate(10);
         return view('landing')->with(compact('clients'));
     }
 

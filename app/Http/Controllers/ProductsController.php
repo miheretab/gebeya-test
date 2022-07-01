@@ -33,7 +33,7 @@ class ProductsController extends Controller
 
         } else {
 
-            $products = Product::where('user_id', $clientId)->orderBy('created_at', 'desc')->get();
+            $products = Product::where('user_id', $clientId)->orderBy('created_at', 'desc')->paginate(10);
             return view('products.store')->with(compact('products', 'client', 'cart'));
         }
     }
@@ -52,7 +52,7 @@ class ProductsController extends Controller
             return view('products.view')->with(compact('product', 'client', 'category', 'cart'));
 
         } else {
-            $products = $category->products()->orderBy('created_at', 'desc')->get();
+            $products = $category->products()->orderBy('created_at', 'desc')->paginate(10);
 
             return view('products.store')->with(compact('products', 'client', 'category', 'cart'));
         }

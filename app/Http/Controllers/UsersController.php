@@ -10,7 +10,7 @@ use Validator;
 class UsersController extends Controller
 {
     public function index(Request $request) {
-        $users = User::where('is_admin', true)->get();
+        $users = User::where('is_admin', true)->paginate(10);
 
         return view('users.index')->with(compact('users'));
     }
@@ -94,7 +94,7 @@ class UsersController extends Controller
     }
 
     public function clients(Request $request) {
-        $users = User::where('is_admin', false)->get();
+        $users = User::where('is_admin', false)->paginate(10);
 
         return view('users.clients')->with(compact('users'));
     }
@@ -111,6 +111,10 @@ class UsersController extends Controller
 
         $user->categories()->each(function($category) {
             $category->products()->detach();
+        });
+
+        $user->products()->each(function($product) {
+            $product->orders()->delete();
         });
 
         $user->categories()->delete();

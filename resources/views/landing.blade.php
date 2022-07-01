@@ -21,6 +21,7 @@
                         </tbody>
                     </table>
                 </div>
+                {{ $clients->links() }}
             </div>
         </div>
     </div>
