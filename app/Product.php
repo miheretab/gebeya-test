@@ -16,6 +16,14 @@ class Product extends Model
     ];
 
     /**
+     * Get the user associated with the product.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    /**
      * Get the orders associated with the product.
      */
     public function orders()

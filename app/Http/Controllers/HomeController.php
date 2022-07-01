@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Product;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,14 @@ class HomeController extends Controller
      */
     public function home()
     {
-        $clients = User::where('is_admin', false)->where('active', true)->paginate(10);
-        return view('landing')->with(compact('clients'));
+        $cart = session('cart');
+
+        $products = Product::whereNotNull('image')->where('quantity', '>', 0)
+        ->with(['user' => function ($query) {
+            $query->where('active', true);
+        }])->orderBy('created_at', 'desc')->paginate(9);
+
+        return view('landing')->with(compact('products', 'cart'));
     }
 
     /**
