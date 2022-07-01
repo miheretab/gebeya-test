@@ -12,6 +12,9 @@
                     <table class="table responsive stripe">
                         <thead>
                             <tr>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Order ID</th>
                                 <th>Name</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
@@ -22,6 +25,9 @@
                         <tbody>
                             @foreach($orders as $order)
                             <tr>
+                                <td>{{ date('M d, Y h:m A', strtotime($order->created_at)) }}</td>
+                                <td>{{ $order->customer->name }}</td>
+                                <td>{{ $order->customer->id }}</td>
                                 <td>{{ $order->product->name }}</td>
                                 <td>{{ $order->quantity }}</td>
                                 <td>${{ $order->price }}</td>

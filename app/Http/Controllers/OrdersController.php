@@ -13,7 +13,7 @@ class OrdersController extends Controller
 {
     public function byClient(Request $request) {
         $productIds = Product::where('user_id', Auth::user()->id)->pluck('id')->toArray();
-        $orders = Order::whereIn('product_id', $productIds)->get();
+        $orders = Order::whereIn('product_id', $productIds)->orderBy('created_at', 'desc')->get();
 
         return view('orders.by-client')->with(compact('orders'));
     }
