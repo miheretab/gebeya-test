@@ -6,3 +6,16 @@
     position: fixed;
     bottom: 0px;
 }
+a.nav-link {
+    text-decoration: underline;
+    max-width: 65px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+a.nav-link.active {
+    text-decoration: overline;
+}
+a.nav-link.btn {
+    text-decoration: none;
+}

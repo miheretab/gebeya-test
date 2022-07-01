@@ -7,6 +7,7 @@ use App\Product;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Miheretab\Com\Helpers\SlugHelper;
 use Validator;
 
 class ProductsController extends Controller
@@ -38,7 +39,7 @@ class ProductsController extends Controller
     }
 
     public function storeByCategory(Request $request, $clientId, $categoryId, $productId = null) {
-        $category = Category::findOrFail($categoryId);
+        $category = !is_numeric($categoryId) ? Category::where('slug', $categoryId)->first() : Category::findOrFail($categoryId);
         $client = User::findOrFail($clientId);
         if ($client->is_admin) {
             return redirect('/');
@@ -84,6 +85,7 @@ class ProductsController extends Controller
             }
 
             $user = Auth::user();
+            $input['slug'] = SlugHelper::generateSlug($input['name'], 'products');
             $input['user_id'] = $user->id;
             Product::create($input);
             return redirect('/products');

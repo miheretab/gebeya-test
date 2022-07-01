@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Miheretab\Com\Helpers\SlugHelper;
 use Validator;
 
 class CategoriesController extends Controller
@@ -28,6 +29,7 @@ class CategoriesController extends Controller
             }
 
             $user = Auth::user();
+            $input['slug'] = SlugHelper::generateSlug($input['name']);
             $input['user_id'] = $user->id;
             Category::create($input);
             return redirect('/categories');
@@ -46,9 +48,9 @@ class CategoriesController extends Controller
         if ($request->isMethod('post')) {
             $input = $request->all();
 
-            $validator = Validator::make($input, [
-                'name' => 'required'
-            ]);
+            $validations = ['name' => 'required'];
+
+            $validator = Validator::make($input, $validations);
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();

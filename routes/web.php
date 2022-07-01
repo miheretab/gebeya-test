@@ -42,7 +42,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/users/stop', 'UsersController@stopImpersonate')->name('stop-autologin');
 });
 
-Route::group(['middleware' => 'impersonate'], function () {
+Route::group(['middleware' => ['impersonate', 'auth']], function () {
     Route::get('/profile', 'UsersController@profile');
     Route::get('/profile-edit', 'UsersController@edit');
     Route::post('/save-user/{id}', 'UsersController@edit');

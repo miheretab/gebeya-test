@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="row">
-                <div class="h1">{{ 'Store / ' . $client->id }} {{ isset($category) ? '/ ' . $category->id  : '' }}</div>
+                <div class="h1">{{ 'Store / ' . $client->id }} {{ isset($category) ? '/ ' . ($category->slug ?: $category->id)  : '' }}</div>
 
                 <div class="table">
                     @if (session('status'))
