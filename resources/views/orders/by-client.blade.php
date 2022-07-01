@@ -32,7 +32,7 @@
                                     &nbsp;&nbsp;|&nbsp;
                                     <a href="{{ url('complete-order', $order->id) }}" onclick="event.preventDefault();
                                         document.getElementById('complete-form-{{$order->id}}').submit();">Complete</a>
-                                    <form id="complete-form-{{$category->id}}" action="{{ url('complete-order', $order->id) }}" method="POST" class="d-none">
+                                    <form id="complete-form-{{$order->id}}" action="{{ url('complete-order', $order->id) }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                     @endif
