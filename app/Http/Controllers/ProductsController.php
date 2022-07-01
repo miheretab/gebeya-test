@@ -28,7 +28,7 @@ class ProductsController extends Controller
 
         if ($productId) {
 
-            $product = Product::where('user_id', $clientId)->where('id', $productId)->first();
+            $product = Product::where('user_id', $clientId)->where('slug', $productId)->first();
             return view('products.view')->with(compact('product', 'client', 'cart'));
 
         } else {
@@ -48,7 +48,7 @@ class ProductsController extends Controller
         $cart = session('cart');
         if ($productId) {
 
-            $product = $category->products()->where('product_id', $productId)->first();
+            $product = $category->products()->where('products.slug', $productId)->first();
             return view('products.view')->with(compact('product', 'client', 'category', 'cart'));
 
         } else {

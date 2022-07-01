@@ -39,7 +39,7 @@ class OrdersController extends Controller
     }
 
     public function addToCart(Request $request, $id, $categoryId = null) {
-        $product = Product::findOrFail($id);
+        $product = Product::where('slug', $id)->firstOrFail();
 
         $cart = session('cart', ['orders' => [], 'customer' => null]);
         $orders = $cart['orders'];
@@ -72,16 +72,16 @@ class OrdersController extends Controller
     }
 
     public function updateToCart(Request $request, $id) {
-        $product = Product::findOrFail($id);
+        $product = Product::where('slug', $id)->firstOrFail();
 
-        $cart = session('cart');
+        $cart = session('cart', ['orders' => [], 'customer' => null]);
         $orders = $cart['orders'];
         $customer = isset($cart['customer']) ? $cart['customer'] : null;
         $quantity = $request->input('quantity');
 
         $diffQuantity = $quantity - $orders[$id]['quantity'];
         if ($diffQuantity == 0) {
-            return redirect()->back()->with(compact('cart'));
+            return redirect('/orders')->with(compact('cart'));
         }
 
         if ($product->quantity > 0 && $product->quantity >= $diffQuantity) {
@@ -108,11 +108,11 @@ class OrdersController extends Controller
 
         session(['cart' => compact('orders', 'customer')]);
 
-        return redirect()->back()->with(compact('status'));
+        return redirect('/orders')->with(compact('status'));
     }
 
     public function removeFromCart(Request $request, $id, $categoryId = null) {
-        $product = Product::findOrFail($id);
+        $product = Product::where('slug', $id)->firstOrFail();
 
         $cart = session('cart', ['orders' => [], 'customer' => null]);
         $orders = $cart['orders'];

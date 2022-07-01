@@ -52,7 +52,7 @@
                         @foreach ($client->categories as $category)
                             @if ($category->active)
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('store-cat', $client->id) }}/{{ $category->slug ?: $category->id }}">{{ $category->name }}</a>
+                                <a class="nav-link {{$category}}" href="{{ url('store-cat', $client->id) }}/{{ $category->slug }}">{{ $category->name }}</a>
                             </li>
                             @endif
                         @endforeach

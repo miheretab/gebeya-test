@@ -11,7 +11,7 @@ class SlugHelper {
     public static function generateSlug($name, $model = 'categories', $addExt = false) {
         $slug = "";
 
-        $slug = $name;
+        $slug = strtolower($name);
         $slug = str_replace(' ', '-', $name); // Replaces all spaces with hyphens.
         $slug = preg_replace('/[^A-Za-z0-9\-]/', '', $slug);
 

@@ -32,10 +32,10 @@
                                 <td>${{ $product->price }}</td>
                                 <td><img src="/{{ $product->image }}" height="100px" alt="{{ $product->image }}" /></td>
                                 <td>
-                                    <a class="btn" href="{{ url(isset($category) ? 'store-cat' : 'store', $client->id) }}{{ isset($category) ? '/' . $category->id  : '' }}/{{ $product->id }}" >View</a>
+                                    <a class="btn" href="{{ url(isset($category) ? 'store-cat' : 'store', $client->id) }}{{ isset($category) ? '/' . $category->slug  : '' }}/{{ $product->slug }}" >View</a>
                                     @if ($product->quantity > 0)
                                     <a class="btn" data-mdb-toggle="modal" data-mdb-target="#cartModal" href="#" onclick="event.preventDefault();
-                                        document.getElementById('cart-form').setAttribute('action', '{{ url('add-to-cart', $product->id) }}{{ isset($category) ? '/'. $category->id : ''}}');
+                                        document.getElementById('cart-form').setAttribute('action', '{{ url('add-to-cart', $product->slug) }}{{ isset($category) ? '/'. $category->slug : ''}}');
                                         document.getElementById('product-name').textContent = '{{ $product->name }}'" >Add to cart</a>
                                     @else
                                     Sold Out!
@@ -75,9 +75,9 @@
                     <tr>
                         <td>{{ $order['product']->name }}</td>
                         <td>{{ $order['quantity'] }}</td>
-                        <td><a class="btn" href="{{ url('remove-from-cart', $order['product']->id) }}{{ isset($category) ? '/'. $category->id : ''}}" onclick="event.preventDefault();
-                            document.getElementById('remove-cart-form').submit();">Remove from cart</a>
-                        <form id="remove-cart-form" action="{{ url('remove-from-cart', $order['product']->id) }}{{ isset($category) ? '/'. $category->id : ''}}" method="POST" class="d-none">
+                        <td><a class="btn" href="{{ url('remove-from-cart', $order['product']->slug) }}{{ isset($category) ? '/'. $category->slug : ''}}" onclick="event.preventDefault();
+                            document.getElementById('remove-cart-form-{{$order['product']->id}}').submit();">Remove from cart</a>
+                        <form id="remove-cart-form-{{$order['product']->id}}" action="{{ url('remove-from-cart', $order['product']->slug) }}{{ isset($category) ? '/'. $category->slug : ''}}" method="POST" class="d-none">
                             @csrf
                         </form></td>
                     </tr>
