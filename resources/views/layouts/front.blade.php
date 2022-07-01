@@ -44,6 +44,16 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @endguest
                         <li class="nav-item">
                             <a class="nav-link btn" href="{{ url('orders') }}">Cart</a>
                         </li>
@@ -53,6 +63,15 @@
                             @if ($category->active)
                             <li class="nav-item">
                                 <a class="nav-link {{$category}}" href="{{ url('store-cat', $client->id) }}/{{ $category->slug }}">{{ $category->name }}</a>
+                            </li>
+                            @endif
+                        @endforeach
+                        @elseif ($categories)
+                        <!-- Categories Links -->
+                        @foreach ($categories as $category)
+                            @if ($category->active)
+                            <li class="nav-item">
+                                <a class="nav-link {{$category}}" href="{{ url('store-cat', $category->user_id) }}/{{ $category->slug }}">{{ $category->name }}</a>
                             </li>
                             @endif
                         @endforeach

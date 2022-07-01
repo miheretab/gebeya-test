@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Order;
 use App\Product;
 use App\User;
@@ -23,7 +24,8 @@ class HomeController extends Controller
             $query->where('active', true);
         }])->orderBy('created_at', 'desc')->paginate(9);
 
-        return view('landing')->with(compact('products', 'cart'));
+        $categories = Category::where('active', true)->get();
+        return view('landing')->with(compact('products', 'cart', 'categories'));
     }
 
     /**
