@@ -46,6 +46,11 @@ class OrdersController extends Controller
         $customer = isset($cart['customer']) ? $cart['customer'] : null;
         $quantity = $request->input('quantity');
 
+        if ($quantity <= 0) {
+            $status = "Invalid Quantity";
+            return redirect()->back()->with(compact('status'));
+        }
+
         if ($product->quantity > 0 && $product->quantity >= $quantity) {
             $product->quantity = $product->quantity - $quantity;
             $product->save();
@@ -71,39 +76,49 @@ class OrdersController extends Controller
         return redirect()->back()->with(compact('status'));
     }
 
-    public function updateToCart(Request $request, $id) {
-        $product = Product::where('slug', $id)->firstOrFail();
-
+    public function updateCart(Request $request) {
+        $input = $request->all();
         $cart = session('cart', ['orders' => [], 'customer' => null]);
         $orders = $cart['orders'];
         $customer = isset($cart['customer']) ? $cart['customer'] : null;
-        $quantity = $request->input('quantity');
 
-        $diffQuantity = $quantity - $orders[$id]['quantity'];
-        if ($diffQuantity == 0) {
-            return redirect('/orders')->with(compact('cart'));
-        }
+        $status = "";
+        foreach ($input['quantity'] as $id => $quantity) {
+            $product = Product::where('slug', $id)->first();
 
-        if ($product->quantity > 0 && $product->quantity >= $diffQuantity) {
-            $product->quantity = $product->quantity - $diffQuantity;
-            $product->save();
-            $status = "Cart updated successfully";
-        } else if ($product->quantity > 0) {
-            $product->quantity = 0;
-            $product->save();
-            $status = "You got last ones and cart updated successfully";
-        } else if ($product->quantity == 0 && $diffQuantity < 0) {
-            $product->quantity = -$diffQuantity;
-            $product->save();
-            $status = "Cart updated successfully";
-        } else {
-            $status = "Sold out";
-        }
+            if ($quantity < 0) {
+                $status = "Invalid Quantity";
+                continue;
+            }
 
-        if ($quantity > 0) {
-            $orders[$id]['quantity'] = $quantity;
-        } else {
-            unset($orders[$id]);
+            $diffQuantity = $quantity - $orders[$id]['quantity'];
+            if ($diffQuantity == 0) {
+                continue;
+            }
+
+            if ($product->quantity > 0 && $product->quantity >= $diffQuantity) {
+                $product->quantity = $product->quantity - $diffQuantity;
+                $product->save();
+                $status = "Cart updated successfully";
+            } else if ($product->quantity > 0) {
+                $quantity = $orders[$id]['quantity'] + $product->quantity;
+                $product->quantity = 0;
+                $product->save();
+                $status = "You got last ones and cart updated successfully";
+            } else if ($product->quantity == 0 && $diffQuantity < 0) {
+                $product->quantity = -$diffQuantity;
+                $product->save();
+                $status = "Cart updated successfully";
+            } else {
+                $quantity = $orders[$id]['quantity'];
+                $status = "Sold out";
+            }
+
+            if ($quantity > 0) {
+                $orders[$id]['quantity'] = $quantity;
+            } else {
+                unset($orders[$id]);
+            }
         }
 
         session(['cart' => compact('orders', 'customer')]);

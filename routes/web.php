@@ -23,7 +23,7 @@ Route::get('/view-order/{id}', 'OrdersController@view');
 Route::get('/store/{clientId}/{productId?}', 'ProductsController@store');
 Route::get('/store-cat/{clientId}/{categoryId}/{productId?}', 'ProductsController@storeByCategory');
 Route::post('/add-to-cart/{id}/{categoryId?}', 'OrdersController@addToCart');
-Route::put('/update-cart/{id}', 'OrdersController@updateToCart');
+Route::put('/update-cart', 'OrdersController@updateCart');
 Route::post('/remove-from-cart/{id}/{categoryId?}', 'OrdersController@removeFromCart');
 Route::get('/checkout', 'OrdersController@checkout');
 Route::post('/go-checkout', 'OrdersController@checkout');
