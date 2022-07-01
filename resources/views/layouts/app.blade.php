@@ -83,7 +83,7 @@
                             </li>
                             @if(Auth::user()->is_admin)
                             <li class="nav-item"><a class="nav-link" href="{{ url('/users') }}">Users</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('/clients') }}">Clients</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/clients') }}">Stores</a></li>
                             @else
                             <li class="nav-item"><a class="nav-link" href="{{ url('/products') }}">Products</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('/categories') }}">Categories</a></li>
