@@ -37,6 +37,7 @@
                                             document.getElementById('update-cart-form-{{$order['product']->id}}').submit();">Update</a>
                                         <form id="update-cart-form-{{$order['product']->id}}" action="{{ url('update-cart', $order['product']->slug) }}" method="POST" class="d-none">
                                             @csrf
+                                            @method('put')
                                             <input id="quantity" name="quantity" type="hidden" value="{{ $order['quantity'] }}" />
                                         </form>
                                         <a class="btn" href="{{ url('remove-from-cart', $order['product']->slug) }}{{ isset($category) ? '/'. $category->slug : ''}}" onclick="event.preventDefault();
