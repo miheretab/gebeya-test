@@ -20,7 +20,11 @@
                         <tbody>
                             @foreach($products as $product)
                             <tr>
-                                <td class="text-center mb-5"><img src="/{{ $product->image }}" width="300px" alt="{{ $product->image }}" /></td>
+                                <td class="text-center mb-5">
+                                    <a href="{{ url('store', $product->user->id) }}/{{ $product->slug }}" >
+                                        <img src="/{{ $product->image }}" width="300px" alt="{{ $product->image }}" />
+                                    </a>
+                                </td>
                                 <td><a href="{{ url('store', $product->user->id) }}">{{ $product->user->name }}</a> - Store [{{ $product->user->id }}]</td>
                                 <td class="mt-5">
                                     @if ($product->quantity > 0)
