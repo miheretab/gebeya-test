@@ -35,8 +35,8 @@
                                 <td>
                                     <a href="{{ url('edit-product', $product->id) }}">Edit</a>&nbsp;&nbsp;|&nbsp;
                                     <a href="{{ url('remove-product', $product->id) }}" onclick="event.preventDefault();
-                                        document.getElementById('delete-form').submit();">Delete</a>&nbsp;&nbsp;|&nbsp;
-                                    <form id="delete-form" action="{{ url('remove-product', $product->id) }}" method="POST" class="d-none">
+                                        document.getElementById('delete-form-{{$product->id}}').submit();">Delete</a>&nbsp;&nbsp;|&nbsp;
+                                    <form id="delete-form-{{$product->id}}" action="{{ url('remove-product', $product->id) }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                     <a href="{{ url('assign-categories', $product->id) }}">Assign Categories</a>

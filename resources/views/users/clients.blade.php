@@ -30,13 +30,13 @@
                                 <td>
                                     <a href="{{ url('edit-user', $user->id) }}">Edit</a>&nbsp;&nbsp;|&nbsp;
                                     <a href="{{ url('switch-user', $user->id) }}" onclick="event.preventDefault();
-                                        document.getElementById('switch-form').submit();">{{ !$user->active ? 'Activate' : 'Deactivate'}} Store</a>&nbsp;&nbsp;|&nbsp;
-                                    <form id="switch-form" action="{{ url('switch-user', $user->id) }}" method="POST" class="d-none">
+                                        document.getElementById('switch-form-{{$user->id}}').submit();">{{ !$user->active ? 'Activate' : 'Deactivate'}} Store</a>&nbsp;&nbsp;|&nbsp;
+                                    <form id="switch-form-{{$user->id}}" action="{{ url('switch-user', $user->id) }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                     <a href="{{ url('remove-user', $user->id) }}" onclick="event.preventDefault();
-                                        document.getElementById('delete-form').submit();">Delete Store</a>&nbsp;&nbsp;|&nbsp;
-                                    <form id="delete-form" action="{{ url('remove-user', $user->id) }}" method="POST" class="d-none">
+                                        document.getElementById('delete-form-{{$user->id}}').submit();">Delete Store</a>&nbsp;&nbsp;|&nbsp;
+                                    <form id="delete-form-{{$user->id}}" action="{{ url('remove-user', $user->id) }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                     <a href="{{ route('autologin', $user->id) }}">Auto Login</a>

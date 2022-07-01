@@ -29,13 +29,13 @@
                                 <td>
                                     <a href="{{ url('edit-category', $category->id) }}">Edit</a>&nbsp;&nbsp;|&nbsp;
                                     <a href="{{ url('remove-category', $category->id) }}" onclick="event.preventDefault();
-                                        document.getElementById('delete-form').submit();">Delete</a>&nbsp;&nbsp;|&nbsp;
-                                    <form id="delete-form" action="{{ url('remove-category', $category->id) }}" method="POST" class="d-none">
+                                        document.getElementById('delete-form-{{$category->id}}').submit();">Delete</a>&nbsp;&nbsp;|&nbsp;
+                                    <form id="delete-form-{{$category->id}}" action="{{ url('remove-category', $category->id) }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                     <a href="{{ url('switch-category', $category->id) }}" onclick="event.preventDefault();
-                                        document.getElementById('switch-form').submit();">{{ $category->active ? 'Hide' : 'Show' }} in Nav</a>
-                                    <form id="switch-form" action="{{ url('switch-category', $category->id) }}" method="POST" class="d-none">
+                                        document.getElementById('switch-form-{{$category->id}}').submit();">{{ $category->active ? 'Hide' : 'Show' }} in Nav</a>
+                                    <form id="switch-form-{{$category->id}}" action="{{ url('switch-category', $category->id) }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </td>
