@@ -12,7 +12,7 @@ class SlugHelper {
         $slug = "";
 
         $slug = strtolower($name);
-        $slug = str_replace(' ', '-', $name); // Replaces all spaces with hyphens.
+        $slug = str_replace(' ', '-', $slug); // Replaces all spaces with hyphens.
         $slug = preg_replace('/[^A-Za-z0-9\-]/', '', $slug);
 
         if ($addExt) {
