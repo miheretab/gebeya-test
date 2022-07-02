@@ -3,4 +3,4 @@ Laravel App Store
     
 Credential for Admin
 - U: mihrtab@gmail.com
-- P: 123456
+- P: 12345678
