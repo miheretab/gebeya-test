@@ -63,19 +63,19 @@
                         </li>
                         @if (isset($client))
                         <!-- Categories Links -->
-                        @foreach ($client->categories as $category)
-                            @if ($category->active)
+                        @foreach ($client->categories as $cat)
+                            @if ($cat->active)
                             <li class="nav-item">
-                                <a class="nav-link {{$category}}" href="{{ url('store-cat', $client->id) }}/{{ $category->slug }}">{{ $category->name }}</a>
+                                <a class="nav-link {{isset($category) && $cat->id == $category->id ? 'active' : ''}}" href="{{ url('store-cat', $client->id) }}/{{ $cat->slug }}">{{ $cat->name }}</a>
                             </li>
                             @endif
                         @endforeach
                         @elseif ($categories)
                         <!-- Categories Links -->
-                        @foreach ($categories as $category)
-                            @if ($category->active)
+                        @foreach ($categories as $cat)
+                            @if ($cat->active)
                             <li class="nav-item">
-                                <a class="nav-link {{$category}}" href="{{ url('store-cat', $category->user_id) }}/{{ $category->slug }}">{{ $category->name }}</a>
+                                <a class="nav-link {{isset($category) && $cat->id == $category->id ? 'active' : ''}}" href="{{ url('store-cat', $cat->user_id) }}/{{ $cat->slug }}">{{ $cat->name }}</a>
                             </li>
                             @endif
                         @endforeach
