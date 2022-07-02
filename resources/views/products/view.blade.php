@@ -15,10 +15,10 @@
 
 
                     <div class="h5 mb-2">{{ $product->name }}</div>
-                    <div class="h5 mb-2">{{ $product->quantity }}</td>
-                    <div class="h5 mb-2">${{ $product->price }}</td>
-                    <div class="text-center mb-5"><img src="/{{ $product->image }}" width="300px" alt="{{ $product->image }}" /></td>
-                    <div class="mt-5">
+                    <div class="h5 mb-2">Quantity: {{ $product->quantity }}</div>
+                    <div class="h5 mb-2">Price: ${{ $product->price }}</div>
+                    <div class="text-center mb-5"><img src="/{{ $product->image }}" width="300px" alt="{{ $product->image }}" /></div>
+                    <div class="text-center mt-5">
                         @if ($product->quantity > 0)
                         <a class="btn" data-mdb-toggle="modal" data-mdb-target="#cartModal" href="#" onclick="event.preventDefault();
                             document.getElementById('cart-form').setAttribute('action', '{{ url('add-to-cart', $product->slug) }}{{ isset($category) ? '/'. $category->slug : ''}}');
