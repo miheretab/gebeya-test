@@ -38,7 +38,7 @@
                                         document.getElementById('cart-form').setAttribute('action', '{{ url('add-to-cart', $product->slug) }}{{ isset($category) ? '/'. $category->slug : ''}}');
                                         document.getElementById('product-name').textContent = '{{ $product->name }}'" >Add to cart</a>
                                     @else
-                                    Sold Out!
+                                    <span class="sold-out">Sold Out!</span>
                                     @endif
                                 </td>
                             </tr>

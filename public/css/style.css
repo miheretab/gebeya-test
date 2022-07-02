@@ -5,6 +5,9 @@
     left: calc(50% - 48px);
     position: fixed;
     bottom: 0px;
+    background: #fff;
+    width: 100%;
+    text-align: left !important;
 }
 a.nav-link {
     text-decoration: underline;
@@ -18,4 +21,13 @@ a.nav-link.active {
 }
 a.nav-link.btn {
     text-decoration: none;
+}
+
+.sold-out {
+    display: inline-block;
+    line-height: 38px;
+    color: #ffffff;
+    background: #2e762a;
+    padding: 0 10px;
+    border-radius: 5px;
 }

@@ -13,10 +13,6 @@
                         </div>
                     @endif
 
-
-                    <div class="h5 mb-2">{{ $product->name }}</div>
-                    <div class="h5 mb-2">Quantity: {{ $product->quantity }}</div>
-                    <div class="h5 mb-2">Price: ${{ $product->price }}</div>
                     <div class="text-center mb-5"><img src="/{{ $product->image }}" width="300px" alt="{{ $product->image }}" /></div>
                     <div class="text-center">
                         @if ($product->quantity > 0)
@@ -27,7 +23,9 @@
                         Sold Out!
                         @endif
                     </div>
-
+                    <div class="h5 mb-2">{{ $product->name }}</div>
+                    <div class="h5 mb-2">Remaining: {{ $product->quantity }}</div>
+                    <div class="h5 mb-2">Price: ${{ $product->price }}</div>
             </div>
         </div>
     </div>
