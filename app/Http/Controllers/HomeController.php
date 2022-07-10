@@ -37,7 +37,7 @@ class HomeController extends Controller
     {
         $data = [];
         $user = \Auth::user();
-        if(\Auth::user()->isImpersonating()) {
+        if($user->isImpersonating()) {
             $impersonateUser = User::find($request->session()->get('impersonate'));
             $data = ['impersonateUser' => $impersonateUser];
             $user = $impersonateUser;

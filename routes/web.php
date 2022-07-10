@@ -17,7 +17,6 @@ Route::get('/', 'HomeController@home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/orders', 'OrdersController@index');
 Route::get('/view-order/{id}', 'OrdersController@view');
 Route::get('/store/{clientId}/{productId?}', 'ProductsController@store');
@@ -43,6 +42,7 @@ Route::group(['middleware' => 'admin'], function () {
 });
 
 Route::group(['middleware' => ['impersonate', 'auth']], function () {
+    Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/profile', 'UsersController@profile');
     Route::get('/profile-edit', 'UsersController@edit');
     Route::post('/save-user/{id}', 'UsersController@edit');
